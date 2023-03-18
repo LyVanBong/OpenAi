@@ -50,13 +50,15 @@ public class Worker : BackgroundService
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions");
-        request.Headers.Add("Authorization", "Bearer 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");
+        request.Headers.Add("Authorization", "Bearer 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");
         var d = $@"{{""model"":""gpt-3.5-turbo"",""messages"":[{{""role"":""user"",""content"":""{content}""}}]}}";
         var body = new StringContent(d,null, "application/json");
         request.Content = body;
         var response = await client.SendAsync(request);
         response.EnsureSuccessStatusCode();
        var json =await response.Content.ReadAsStringAsync();
+
+        Console.WriteLine(json);
 
         if (string.IsNullOrWhiteSpace(json))
             return "";
